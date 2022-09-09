@@ -1,8 +1,9 @@
-
 import 'dart:ui';
 
+///Using top level variables is considered as bad practice
 const primaryColor = Color(0xFF45a3e6);
 
+///MyBlueN is not a descriptive name
 const Color MyBlue1 = Color(0xFF0642ba);
 const Color MyBlue2 = Color(0xFF1468cf);
 const Color MyBlue3 = Color(0xFF2d8de1);
@@ -23,4 +24,3 @@ const Color MyWhite3 = Color(0xFFe8e8e8);
 const Color MyWhite4 = Color(0xFFf2f2f2);
 const Color MyWhite5 = Color(0xFFfafafa);
 const Color MyWhite6 = Color(0xFFffffff);
-

@@ -1,6 +1,8 @@
-
 class WatcherGroupLocation {
   final List accessTokens;
+
+  ///Consider specifying Map<String, String>
+  ///It gives you better type safety and autocomplete suggestions
   final Map adminLevels;
   final String nameSpace;
   final List ids;
@@ -20,9 +22,7 @@ class WatcherGroupLocation {
       ids: json['ids'],
     );
   }
-
 }
-
 
 /* sample
 {

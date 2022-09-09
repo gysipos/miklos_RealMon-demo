@@ -1,11 +1,10 @@
-
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
 import 'WatcherGroupLocation.dart';
 
-
+///Consider using a library to generate data classes, like freezed
 class WatcherGroup {
   final bool isNotificationEnabled;
   final bool privateAdvertisersOnly;
@@ -49,7 +48,8 @@ class WatcherGroup {
 
   factory WatcherGroup.fromJson(Map<String, dynamic> json) {
     List loc0 = json['locations'];
-    List<WatcherGroupLocation> loc = loc0.map((item) => WatcherGroupLocation.fromJson(item)).toList();
+    List<WatcherGroupLocation> loc =
+        loc0.map((item) => WatcherGroupLocation.fromJson(item)).toList();
 
     return WatcherGroup(
       isNotificationEnabled: json['isNotificationEnabled'],
@@ -75,11 +75,16 @@ class WatcherGroup {
 
   // util
 
+  ///A WatcherGroup should not be responsible for fetching itself from the BE
+  ///Consider reading about the SOLID principles and the Clean architecture.
+  ///https://medium.com/@fakhiradevina/flutter-tdd-clean-architecture-272373727699
+  ///Also, the lack of architecture will make this code a complete mess once it starts growing
   static Future<List<WatcherGroup>> fetchWatcherGroups() async {
     // get json data
-    final response = await http.Client().get(
-        Uri.parse('https://angolszotanito.hu/realm-demo.php')
-    );
+    ///Always creating a new Client is considered a bad practice
+    ///Read the comments over the Client class declaration
+    final response = await http.Client()
+        .get(Uri.parse('https://angolszotanito.hu/realm-demo.php'));
     if (response.statusCode == 200) {
       Iterable parsed = jsonDecode(response.body);
       return parsed.map((item) => WatcherGroup.fromJson(item)).toList();
@@ -90,20 +95,22 @@ class WatcherGroup {
 
   String getAssignmentTypeName() {
     if ("FOR_SALE" == assignmentType) {
+      ///A data class shouldn't know about the language with which it's used
       return "eladó";
     }
     return "";
   }
 
   String getEstateTypesName() {
+    ///Consider using a StringBuffer
     String str = "";
-    if (estateTypes!= null && estateTypes!.contains("HOUSE")) {
+    if (estateTypes != null && estateTypes!.contains("HOUSE")) {
       if (str.isNotEmpty) {
         str += ", ";
       }
       str += "Ház";
     }
-    if (estateTypes!= null && estateTypes!.contains("FLAT")) {
+    if (estateTypes != null && estateTypes!.contains("FLAT")) {
       if (str.isNotEmpty) {
         str += ", ";
       }
@@ -112,9 +119,11 @@ class WatcherGroup {
     return str;
   }
 
-
   String getLocations() {
     String str = "";
+
+    ///If a variable is not reassigned, prefer it to be final.
+    ///It creates a smaller and more performant machine code
     for (WatcherGroupLocation location in locations) {
       String city = location.adminLevels["8"];
       if (str.isNotEmpty) {
@@ -170,11 +179,7 @@ class WatcherGroup {
     }
     return str;
   }
-
-
 }
-
-
 
 /* sample
 {

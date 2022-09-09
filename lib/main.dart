@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'MainAppWidget.dart';
 
+///Usually it's recommended to implement some kind of folder structure
+///so as the project grows bigger than 5 files it remains manageable
 void main() {
   runApp(const MyApp());
 }
@@ -15,8 +17,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      scrollBehavior: const MaterialScrollBehavior().copyWith( // for Win
-        dragDevices: {ui.PointerDeviceKind.mouse, ui.PointerDeviceKind.touch, ui.PointerDeviceKind.stylus, ui.PointerDeviceKind.unknown},
+      scrollBehavior: const MaterialScrollBehavior().copyWith(
+        // for Win
+        dragDevices: {
+          ui.PointerDeviceKind.mouse,
+          ui.PointerDeviceKind.touch,
+          ui.PointerDeviceKind.stylus,
+          ui.PointerDeviceKind.unknown
+        },
       ),
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -26,4 +34,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
